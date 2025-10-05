@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="/css/bootstrap.css" rel="stylesheet">
+    <link href="/css/bootstrap-theme.css" rel="stylesheet">
+    <link href="/css/my-style.css" rel="stylesheet">
+
+    <title>Server-Side Programming - <?php /** @var TYPE_NAME $view */
+        echo $view->pageTitle; ?></title>
+</head>
+
+<body role="document">
+
+<div class="container">
+    <div class="row">
+        <div id="title" class="col-xs-12">
+            <img src="images/new_uos_logo.jpg" alt="Salford University" />
+            <div class="pull-right"> <h1><?php echo $view->pageTitle; ?></h1></div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div id="menu" class="col-xs-6 col-sm-3 col-md-2">
+            <ul class="nav navbar_default nav-stacked">
+                <li><a href="index.php">Home</a></li>
+                <li><a href="querystring.php">Back to Products</a></li>
+            </ul>
+        </div>
+
+        <div id="content" class="col-xs-6 col-sm-9 col-md-10">
+            <h2>Purchase Details</h2>
+            <?php if (!empty($view->productName)): ?>
+                <div class="alert alert-success">
+                    <h3>Thank you for your purchase!</h3>
+                    <p><strong>Product ID:</strong> <?php echo htmlspecialchars($view->productID); ?></p>
+                    <p><strong>Product Name:</strong> <?php echo htmlspecialchars($view->productName); ?></p>
+                    <p><strong>Price:</strong> £<?php echo htmlspecialchars($view->productPrice); ?></p>
+                </div>
+            <?php else: ?>
+                <div class="alert alert-warning">
+                    No product selected.
+                </div>
+            <?php endif; ?>
+            <a href="querystring.php" class="btn btn-primary">Back to Products</a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div id="footer" class="col-xs-12">
+            <p>Web-site development using the MVC design pattern and the Bootstrap CSS framework</p>
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+</body>
+</html>

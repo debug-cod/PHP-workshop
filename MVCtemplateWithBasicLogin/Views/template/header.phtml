@@ -1,0 +1,81 @@
+<?php
+// 确保$view对象存在，如果不存在则创建一个空的
+if (!isset($view)) {
+    $view = new stdClass();
+    $view->pageTitle = 'Default Title';
+}
+
+// 启动session（如果需要）
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.css" rel="stylesheet">
+    <!-- Bootstrap theme -->
+    <link href="/css/bootstrap-theme.css" rel="stylesheet">
+    <link href="/css/my-style.css" rel="stylesheet">
+
+    <title>Server-Side Programming - <?php echo $view->pageTitle; ?></title>
+</head>
+
+<body role="document">
+
+<div class="container">
+    <div class="row">
+        <div id="title" class="col-xs-12">
+            <img src="images/new_uos_logo.jpg" alt="University of Salford" />
+            <div class="pull-right"> <h1><?php echo $view->pageTitle; ?></h1></div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div id="menu" class="col-xs-6 col-sm-3 col-md-2">
+            <ul class="nav navbar_default nav-stacked">
+                <?php
+                // 登录表单
+                if (!isset($_SESSION["login"])) {
+                    echo ' 
+                    <form method="post" action="logincontroller.php" class="form text-primary">
+                        <label for="username">Username</label>
+                        <input type="text" name="username" class="form-control">
+                        <label for="password">Password</label>
+                        <input type="password" name="password" class="form-control">
+                        <input type="submit" name="loginbutton" value="Login" class="btn btn-primary btn-sm mt-2">
+                    </form>';
+                } else {
+                    echo '
+                    <form method="post" action="logincontroller.php" class="form text-primary">
+                        <p>Welcome, ' . (isset($_SESSION["login"]) ? $_SESSION["login"] : 'User') . '</p>
+                        <input type="submit" name="logoutbutton" value="Logout" class="btn btn-warning btn-sm">
+                    </form>';
+                }
+                ?>
+
+                <!-- 始终显示的导航链接 -->
+                <li class="nav-item"><a href="index.php">Home</a></li>
+                <li class="nav-item"><a href="page1.php">Page1</a></li>
+                <li class="nav-item"><a href="page2.php">Page2</a></li>
+
+                <?php if (isset($_SESSION["login"])): ?>
+                    <!-- 只有登录后才显示的导航链接 -->
+                    <li class="nav-item"><a href="persistence.php">Persistence Exercise</a></li>
+                    <li class="nav-item"><a href="persistence_session.php">Session Exercise</a></li>
+                    <li class="nav-item"><a href="querystring.php">Query String Exercise</a></li>
+                    <li class="nav-item"><a href="minishop.php">Mini Shop</a></li>
+                <?php endif; ?>
+            </ul>
+        </div>
+
+        <div id="content" class="col-xs-6 col-sm-9 col-md-10">
+
+
